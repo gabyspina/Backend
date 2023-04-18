@@ -19,17 +19,23 @@ class productManager {
 			stock,
 		};
 
-        product.id = this.#getProductsById
+		product.id = this.#getId();
 
-        this.productos.push(product)
+		this.productos.push(product);
 	}
 
-	#getProductsById() {
+	#getId() {
 		const oldId = this.#id;
 		this.#id += 1;
 		return oldId;
 	}
 
-		
-
+	#getProductsById() {
+		this.#id += 1;
+		const oldId = this.#id;
+		return oldId;
+	}
 }
+
+//productManager.addProduct('Producto 1', 'Descripcion 1', 100, 'https://www.google.com', 1, 10);
+productManager.getProducts();
