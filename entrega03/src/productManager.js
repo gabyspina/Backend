@@ -1,9 +1,9 @@
-const fs = require('fs');
+import fs from 'fs';
 
-export class productManager {
+export default class ProductManager {
 	#id = 0;
 	constructor() {
-		this.path = './productos.json';
+		this.path = '.src/productos.json';
 		this.products = [];
 		fs.promises.writeFile(this.path, JSON.stringify([]) + '\n');
 	}
@@ -99,7 +99,7 @@ export class productManager {
 		}
 	}
 }
-const manager = new productManager();
+const manager = new ProductManager();
 
 setTimeout(() => {}, 1000);
 
