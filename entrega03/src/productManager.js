@@ -3,9 +3,9 @@ import fs from 'fs';
 export default class ProductManager {
 	#id = 0;
 	constructor() {
-		this.path = '.src/productos.json';
+		this.path = './src/productos.json';
 		this.products = [];
-		fs.promises.writeFile(this.path, JSON.stringify([]) + '\n');
+		//		fs.promises.writeFile(this.path, JSON.stringify([]) + '\n');
 	}
 
 	#getId() {
@@ -32,7 +32,7 @@ export default class ProductManager {
 			actualProducts.push(product);
 			await fs.promises.writeFile(
 				this.path,
-				JSON.stringify([...actualProducts]) + '\n'
+				JSON.stringify([...actualProducts])
 			);
 		} catch (err) {
 			console.log(err);
@@ -99,50 +99,3 @@ export default class ProductManager {
 		}
 	}
 }
-const manager = new ProductManager();
-
-setTimeout(() => {}, 1000);
-
-const test = async () => {
-	try {
-		await manager.addProduct(
-			'Producto 1',
-			'Descripción 1',
-			100,
-			'https://www.google.com',
-			1,
-			10
-		);
-		await manager.addProduct(
-			'Producto 2',
-			'Descripción 2',
-			200,
-			'https://www.google.com',
-			2,
-			20
-		);
-
-		console.log(
-			await manager.addProduct(
-				'Producto 3',
-				'Descripción 3',
-				300,
-				'https://www.google.com',
-				3,
-				30
-			)
-		);
-		console.log(await manager.getProducts());
-
-		console.log(await manager.getProductById(0));
-
-		console.log(await manager.updateProduct(0, { title: 'Producto 0' }));
-
-		console.log(await manager.deleteProduct(1, { title: 'Producto 0' }));
-
-		console.log(await manager.getProducts());
-	} catch (error) {
-		console.log(error);
-	}
-};
-test();
