@@ -67,7 +67,7 @@ export default class ProductManager {
 		}
 		const product = products[indice];
 		const productoModificado = {
-			...product,
+ 			...product,
 			...archivoActualizado,
 			id: product.id,
 		};
