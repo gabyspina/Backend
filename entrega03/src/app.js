@@ -17,27 +17,22 @@ app.listen(8080, () => {
 app.get('/products', async (req, res) => {
 	try {
 		const products = await productManager.getProducts();
-		res.json(products);
+		const limit = req.query.limit;
+		if (limit) {
+			res.json(products.slice(0, limit));
+		} else {
+			res.json(products);
+		}
 	} catch (err) {
 		console.log(err);
 	}
 });
 
-app.get('/products/:limit', async (req, res) => {
-	try {
-		const products = await productManager.getProducts();
-		const limit = req.params.limit;
-		res.json(products.slice(0, limit));
-	} catch (err) {
-		console.log(err);
-	}
-});
-
-app.get('/products/id/:id', async (req, res) => {
+app.get('/products/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
-		const product = await productManager.getProductById(id);
-		res.json(product);
+		const products = await productManager.getProductById(id);
+		res.json(products);
 	} catch (err) {
 		console.log(err);
 	}
