@@ -18,10 +18,10 @@ app.get('/products', async (req, res) => {
 	try {
 		const products = await productManager.getProducts();
 		const limit = req.query.limit;
-		if (limit) {
-			res.json(products.slice(0, limit));
-		} else {
+		if (!limit) {
 			res.json(products);
+		} else {
+			res.json(products.slice(0, limit));
 		}
 	} catch (err) {
 		console.log(err);
