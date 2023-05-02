@@ -52,8 +52,8 @@ export default class ProductManager {
 		const products = await this.getProducts();
 		const product = products.find((product) => product.id === id);
 		if (!product) {
-			console.error('Producto no encontrado.');
-			return;
+			console.error('No se encontro el producto solicitado.');
+			return 'No se encontro el producto solicitado.';
 		}
 		return product;
 	}
@@ -67,7 +67,7 @@ export default class ProductManager {
 		}
 		const product = products[indice];
 		const productoModificado = {
- 			...product,
+			...product,
 			...archivoActualizado,
 			id: product.id,
 		};

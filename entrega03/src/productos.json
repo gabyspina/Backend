@@ -1,47 +1,92 @@
 [
 	{
-		"id": "0",
-		"title": "Producto 0",
-		"description": "Descripción 0",
+		"id": "1",
+		"title": "Regla",
+		"description": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fes%2Fsearch%2Fregla&psig=AOvVaw24YDU0MVwmj0vqv1Ql2Li1&ust=1683145731578000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJj4vs281_4CFQAAAAAdAAAAABAE",
 		"price": 100,
 		"thumbnail": "https://www.google.com",
 		"code": 1,
 		"stock": 10
 	},
 	{
-		"id": "1",
-		"title": "Producto 1",
-		"description": "Descripción 1",
+		"id": "2",
+		"title": "Escuadra",
+		"description": "Descripción de escuadra",
 		"price": 200,
-		"thumbnail": "https://www.google.com",
-		"code": 1,
+		"thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fes%2Ffotos%2Fescuadra&psig=AOvVaw3CS1maG3i-lqb7bktcSoGC&ust=1683145930699000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJD1j6y91_4CFQAAAAAdAAAAABAE",
+		"code": 2,
 		"stock": 20
 	},
 	{
-		"id": "2",
-		"title": "Producto 2",
-		"description": "Descripción 2",
+		"id": "3",
+		"title": "Tijera",
+		"description": "Descripción de tijera",
 		"price": 300,
-		"thumbnail": "https://www.google.com",
+		"thumbnail": "https://janomeargentina.com.ar/wp-content/uploads/2016/12/Tijera-97518.jpg",
 		"code": 3,
 		"stock": 30
 	},
 	{
-		"id": "3",
-		"title": "Producto 3",
-		"description": "Descripción 3",
+		"id": "4",
+		"title": "Calculadora",
+		"description": "Descripción de Calculadora",
 		"price": 400,
-		"thumbnail": "https://www.google.com",
+		"thumbnail": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Casio_fx-85WA_20050529.jpg",
 		"code": 4,
 		"stock": 40
 	},
 	{
-		"id": "4",
-		"title": "Producto 4",
-		"description": "Descripción 4",
+		"id": "5",
+		"title": "Goma de borrar",
+		"description": "Descripción de goma",
 		"price": 100,
-		"thumbnail": "https://www.google.com",
-		"code": 4,
+		"thumbnail": "https://okdiario.com/img/2022/09/23/para-que-sirve-realmente-la-parte-azul-de-la-goma-de-borrar.jpg",
+		"code": 5,
+		"stock": 50
+	},
+	{
+		"id": "6",
+		"title": "Marcador",
+		"description": "Descripción de marcador",
+		"price": 150,
+		"thumbnail": "https://polipapel.vteximg.com.br/arquivos/ids/156228-1000-1000/Marcador-Y09431.jpg?v=636717747664400000",
+		"code": 6,
+		"stock": 60
+	},
+	{
+		"id": "7",
+		"title": "Sacapuntas",
+		"description": "Descripción de Sacapuntas",
+		"price": 100,
+		"thumbnail": "https://thumbs.dreamstime.com/b/foto-de-un-sacapuntas-7171399.jpg",
+		"code": 7,
+		"stock": 70
+	},
+	{
+		"id": "8",
+		"title": "Birome",
+		"description": "Descripción Birome",
+		"price": 2000,
+		"thumbnail": "https://www.revistachacra.com.ar/files/image/13/13583/575aa2fc09a30_837_627!.jpg?s=32040049df86a255f574cc2a4d6a1119&d=1571171328",
+		"code": 8,
+		"stock": 80
+	},
+	{
+		"id": "9",
+		"title": "Transportador",
+		"description": "Descripción Transportador",
+		"price": 100,
+		"thumbnail": "https://previews.123rf.com/images/peterhermesfurian/peterhermesfurian1706/peterhermesfurian170600068/80177833-transportador-modelo-de-papel-para-cortar-impr%C3%ADmalo-en-papel-grueso-cualquier-formato-de-p%C3%A1gina.jpg",
+		"code": 9,
+		"stock": 90
+	},
+	{
+		"id": "10",
+		"title": "Cinta adhesiva",
+		"description": "Descripción de cinta adhesiva",
+		"price": 100,
+		"thumbnail": "https://d1758cn8v20huy.cloudfront.net/media/catalog/product/cache/8349b2f6c859aad98d39b335b9634d0d/p/o/pore_rollo_blanco.png",
+		"code": 9,
 		"stock": 50
 	}
 ]
