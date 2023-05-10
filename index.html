@@ -11,28 +11,36 @@
 
 		<center>
 			<form method="post" action="/api/products">
-				<input
-					type="text"
-					required
-					id="name"
-					name="name"
-					placeholder="Nombre de Producto"
-				/>
+				<input type="text" required id="name" name="name" placeholder="title" />
 				<input
 					type="text"
 					required
 					id="description"
 					name="description"
-					placeholder="Descripcion de Producto"
+					placeholder="Description"
 				/>
+				<input type="text" required id="code" name="code" placeholder="Code" />
 				<input
 					type="number"
 					required
 					id="price"
 					name="price"
-					placeholder="Precio de Producto"
+					placeholder="Price"
 				/>
-
+				<input
+					type="number"
+					required
+					id="stock"
+					name="stock"
+					placeholder="Stock"
+				/>
+				<input
+					type="text"
+					required
+					id="category"
+					name="category"
+					placeholder="Category"
+				/>
 				<button type="submit">Enviar</button>
 			</form>
 		</center>
