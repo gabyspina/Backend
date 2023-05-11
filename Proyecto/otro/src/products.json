@@ -1,0 +1,52 @@
+[
+	{
+		"title": "auto",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 1
+	},
+	{
+		"title": "auto",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 2
+	},
+	{
+		"title": "auto",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 3
+	},
+	{
+		"title": "auto",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 4
+	},
+	{
+		"title": "auto",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 5
+	}
+]
