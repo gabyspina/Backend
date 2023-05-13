@@ -48,5 +48,25 @@
 		"category": "vehiculo",
 		"thumbnail": "jjjjj",
 		"id": 5
+	},
+	{
+		"title": "auto",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 6
+	},
+	{
+		"title": "auto",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 7
 	}
 ]
