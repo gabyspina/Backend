@@ -1,5 +1,4 @@
 import fs from 'fs';
-
 export default class ProductManager {
 	#id = 0;
 	constructor() {
@@ -62,6 +61,7 @@ export default class ProductManager {
 		try {
 			const data = await fs.promises.readFile(this.path, 'utf-8');
 			console.log(data);
+
 			return JSON.parse(data);
 		} catch (error) {
 			console.log(error);

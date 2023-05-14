@@ -1,34 +1,34 @@
 import { Router } from 'express';
-import ProductManager from './productManager.js';
+import ProductManager from '../productManager.js';
 const productsRouter = Router();
-const productManager = new ProductManager('./products.json');
+const productManager = new ProductManager();
 
-productsRouter.get('/', (req, res) => {
-	const products = productManager.getProducts();
+productsRouter.get('/', async (req, res) => {
+	const products = await productManager.getProducts();
+	console.log(products);
 	res.send(products);
-	console.log(res.send(products));
 });
 
-productsRouter.get('/:id', (req, res) => {
+productsRouter.get('/:id', async (req, res) => {
 	const productManager = new ProductManager();
-	const product = productManager.getProductById(req.params.id);
+	const product = await productManager.getProductById(req.params.id);
 	res.send(product);
 });
 
-productsRouter.post('/', (req, res) => {
-	const product = productManager.addProduct(req.body);
+productsRouter.post('/', async (req, res) => {
+	const product = await productManager.addProduct(req.body);
 	res.send(product);
 });
 
-productsRouter.put('/:id', (req, res) => {
+productsRouter.put('/:id', async (req, res) => {
 	const productManager = new ProductManager();
-	const product = productManager.updateProduct(req.params.id, req.body);
+	const product = await productManager.updateProduct(req.params.id, req.body);
 	res.send(product);
 });
 
-productsRouter.delete('/:id', (req, res) => {
+productsRouter.delete('/:id', async (req, res) => {
 	const productManager = new ProductManager();
-	const product = productManager.deleteProduct(req.params.id);
+	const product = await productManager.deleteProduct(req.params.id);
 	res.send(product);
 });
 
