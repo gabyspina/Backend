@@ -1,12 +1,12 @@
 {
-	"name": "preentrega1",
+	"name": "otro",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon src/app.js"
+		"start": "nodemon src/app.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
 	"author": "",
