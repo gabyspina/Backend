@@ -2,35 +2,46 @@ import { Router } from 'express';
 import CartManager from '../cartManager.js';
 
 const cartsRouter = Router();
+const cartManager = new CartManager();
 
-cartsRouter.get('/', (req, res) => {
-	const cartsManager = new CartManager();
-	const products = cartsManager.getProducts();
-	res.send(products);
+
+cartsRouter.get('/', async (req, res) => {
+	try {
+		res.send(await cartManager.getCarts());
+	} catch (err) {
+		console.log(err);
+	}
 });
 
-cartsRouter.get('/:id', (req, res) => {
-	const cartsManager = new CartManager();
-	const product = cartsManager.getProductById(req.params.id);
-	res.send(product);
+cartsRouter.post('/', async (req, res) => {
+	try {
+		res.status(201).send(await cartManager.newCart());
+	} catch (err) {
+		console.log(err);
+	}
 });
 
-cartsRouter.post('/', (req, res) => {
-	const cartsManager = new CartManager();
-	const product = cartsManager.addProduct(req.body);
-	res.send(product);
+// req.params: permite buscar un carrito por su ID para ver los productos que contiene. EJ: http://localhost:8080/api/carts/2
+cartsRouter.get('/:cid', async (req, res) => {
+	try {
+		const cartById = await cartManager.getCartByID(parseInt(req.params.cid));
+		res.status(201).send(await cartById);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
-cartsRouter.put('/:id', (req, res) => {
-	const cartsManager = new ProductManager();
-	const product = cartsManager.updateProduct(req.params.id, req.body);
-	res.send(product);
-});
-
-cartsRouter.delete('/:id', (req, res) => {
-	const cartsManager = new ProductManager();
-	const product = cartsManager.deleteProduct(req.params.id);
-	res.send(product);
+// Agrega un producto al carrito. Recibe como parametro id del carrio (cid) y el id del producto (pid)
+cartsRouter.post('/:cid/products/:pid', async (req, res) => {
+	try {
+		const newProduct = await cartManager.addToCart(
+			parseInt(req.params.cid),
+			parseInt(req.params.pid)
+		);
+		return res.status(201).send(await newProduct);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 export { cartsRouter };

@@ -7,7 +7,7 @@ export default class ProductManager {
 	}
 
 	async addProduct(product) {
-		if (
+		if ( 
 			!product.title ||
 			!product.description ||
 			!product.price ||
@@ -20,7 +20,6 @@ export default class ProductManager {
 				status: 'error',
 				message: 'Todos los campos son obligatorios.',
 			};
-
 		try {
 			if (fs.existsSync(this.path)) {
 				const data = await fs.promises.readFile(this.path, 'utf-8');
@@ -60,8 +59,6 @@ export default class ProductManager {
 	async getProducts() {
 		try {
 			const data = await fs.promises.readFile(this.path, 'utf-8');
-			console.log(data);
-
 			return JSON.parse(data);
 		} catch (error) {
 			console.log(error);
@@ -71,17 +68,20 @@ export default class ProductManager {
 
 	async getProductById(id) {
 		const products = await this.getProducts();
-		const product = products.find((product) => product.id === id);
+		const product = products.find((product) => product.id === parseInt(id));
 		if (!product) {
-			console.error('No se encontro el producto solicitado.');
-			return 'No se encontro el producto solicitado.';
+			console.error('Producto no encontrado.');
+			return { status: 'error', message: 'Producto no encontrado.' };
 		}
 		return product;
+	}
+	catch(err) {
+		console.log(err);
 	}
 
 	async updateProduct(id, archivoActualizado) {
 		const products = await this.getProducts();
-		const indice = products.findIndex((product) => product.id === id);
+		const indice = products.findIndex((product) => product.id === parseInt(id));
 		if (indice === -1) {
 			console.error('Producto no encontrado.');
 			return;
@@ -108,7 +108,7 @@ export default class ProductManager {
 		try {
 			const actualProducts = await this.getProducts();
 			const updateProduct = actualProducts.filter(
-				(product) => product.id !== id
+				(product) => product.id !== parseInt(id)
 			);
 			await fs.promises.writeFile(
 				this.path,
