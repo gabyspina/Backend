@@ -1,0 +1,12 @@
+[
+	{
+		"title": "carro",
+		"price": "333",
+		"description": "lindo",
+		"thumbnail": "foto",
+		"stock": "2",
+		"category": "vehiculo",
+		"code": "2",
+		"id": 1
+	}
+]
