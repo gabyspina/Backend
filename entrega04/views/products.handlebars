@@ -1,29 +1,53 @@
-<form method='post' action='/api/products'>
-	<input type='text' required id='title' name='title' placeholder='title' />
-	<input type='text' required id='price' name='price' placeholder='price' />
-	<input
-		type='text'
-		required
-		id='description'
-		name='description'
-		placeholder='description'
-	/>
-	<input
-		type='text'
-		required
-		id='thumbnail'
-		name='thumbnail'
-		placeholder='thumbnail'
-	/>
-	<input type='text' required id='stock' name='stock' placeholder='stock' />
-	<input
-		type='text'
-		required
-		id='category'
-		name='category'
-		placeholder='category'
-	/>
-	<input type='text' required id='code' name='code' placeholder='code' />
-	<button type='submit'>Add Product</button>
+<div id='title'>
+	<h1>Products</h1>
+</div>
 
-</form>
+<div id='main'>
+	<div id='addProducts'>
+		<h2>Add Products</h2>
+
+		<form id='form'>
+			<input type='text' required id='title' name='title' placeholder='title' />
+			<input type='text' required id='price' name='price' placeholder='price' />
+			<input
+				type='text'
+				required
+				id='description'
+				name='description'
+				placeholder='description'
+			/>
+			<input
+				type='text'
+				required
+				id='thumbnail'
+				name='thumbnail'
+				placeholder='thumbnail'
+			/>
+			<input type='text' required id='stock' name='stock' placeholder='stock' />
+			<input
+				type='text'
+				required
+				id='category'
+				name='category'
+				placeholder='category'
+			/>
+			<input type='text' required id='code' name='code' placeholder='code' />
+			<button type='submit'>Add Product</button>
+
+		</form>
+
+	</div>
+
+	<div id='products'>
+
+	</div>
+
+</div>
+
+<script
+	src='
+https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js
+'
+></script>
+<script src='/socket.io/socket.io.js'></script>
+<script src='/public/js/index.js'></script>

@@ -1,14 +1,15 @@
 import fs from 'fs';
 
 class ProductController {
-    #id = 0;
+	#id = 0;
 	constructor() {
 		this.path = './src/products.json';
 		this.products = [];
 	}
 
+
 	async addProduct(product) {
-		if ( 
+		if (
 			!product.title ||
 			!product.description ||
 			!product.price ||
@@ -32,10 +33,7 @@ class ProductController {
 					this.path,
 					JSON.stringify(this.products, null, '\t')
 				);
-				return {
-					status: 'success',
-					message: 'Producto agregado',
-				};
+				return product;
 			} else {
 				product.id = 1;
 				this.products.push(product);
@@ -44,7 +42,7 @@ class ProductController {
 					JSON.stringify(this.products, null, '\t')
 				);
 				return {
-					console: 'success',
+					status: 'success',
 					message: 'Producto agregado',
 				};
 			}
@@ -59,14 +57,62 @@ class ProductController {
 
 	async getProducts() {
 		try {
-			const data = await fs.promises.readFile(this.path, 'utf-8');
-			return JSON.parse(data);
-		} catch (error) {
-			console.log(error);
-			return;
+			const productos = fs.readFileSync(this.path, 'utf-8');
+			return JSON.parse(productos);
+		} catch (err) {
+			console.log(err);
 		}
 	}
 
+	async getProductById(id) {
+		try {
+			const products = await this.getProducts();
+			const product = await products.find((product) => product.id === id);
+			return product
+				? product
+				: '*** No se ha encontrado un producto con el ID indicado';
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async deleteProduct(id) {
+		try {
+			const products = await this.getProducts();
+			const product = await products.find((product) => product.id === id);
+			if (!product)
+				return '*** No se ha encontrado un producto con el ID indicado';
+			const newProducts = products.filter((product) => product.id !== id);
+			await fs.promises.writeFile(
+				this.path,
+				JSON.stringify(newProducts, null, '\t')
+			);
+			return 'Producto eliminado';
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async updateProduct(id, product) {
+		try {
+			const products = await this.getProducts();
+			const productToUpdate = await products.find(
+				(product) => product.id === id
+			);
+			if (!productToUpdate)
+				return 'No se ha encontrado un producto con el ID indicado';
+			const newProducts = products.filter((product) => product.id !== id);
+			const updatedProduct = { ...productToUpdate, ...product };
+			newProducts.push(updatedProduct);
+			await fs.promises.writeFile(
+				this.path,
+				JSON.stringify(newProducts, null, '\t')
+			);
+			return updatedProduct;
+		} catch (err) {
+			console.log(err);
+		}
+	}
 }
 
 export default ProductController;
