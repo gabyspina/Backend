@@ -28,34 +28,41 @@ const webServer = app.listen(8080, () => {
 
 const io = new Server(webServer);
 
-io.on('connection', async (socket) => {
-	try {
-		socket.emit('products', await productController.getProducts());
-	} catch (err) {
-		console.log(err);
-	}
+// io.on('connection', async (socket) => {
+// 	console.log('New connection');
+// 	try {
+// 		socket.emit('products', await productController.getProducts());
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
 
-	socket.on('new-product', async (data) => {
-		try {
-			await productController.addProduct(data);
-		} catch (err) {
-			console.log(err);
-		}
-	});
+// 	socket.on('new-product', async (data) => {
+// 		try {
+// 			await productController.addProduct(data);
+// 		} catch (err) {
+// 			console.log(err);
+// 		}
+// 	});
 
-	socket.on('delete-product', async (id) => {
-		try {
-			await productController.deleteProduct(id);
-		} catch (err) {
-			console.log(err);
-		}
-	});
+// 	socket.on('delete-product', async (id) => {
+// 		try {
+// 			await productController.deleteProduct(id);
+// 		} catch (err) {
+// 			console.log(err);
+// 		}
+// 	});
 
-	socket.on('update-product', async (data) => {
-		try {
-			await productController.updateProduct(data);
-		} catch (err) {
-			console.log(err);
-		}
-	});
+// 	socket.on('update-product', async (data) => {
+// 		try {
+// 			await productController.updateProduct(data);
+// 		} catch (err) {
+// 			console.log(err);
+// 		}
+// 	});
+// });
+io.on('connection', (socket) => {
+	console.log('New connection');
+	socket.emit('products', 'hola')
 });
+
+	
