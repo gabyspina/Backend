@@ -2,8 +2,9 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import mongoose from 'mongoose';
 
+import cartRouter from './routers/cart.router.js';
 import productRouter from './routers/product.router.js';
-import viewsRouter from './routers/views.router.js';  	
+import viewsRouter from './routers/views.router.js';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.static('public'));
 // Configuración de rutas
 app.use('/api/products', productRouter);
 app.use('/', viewsRouter);
+app.use('/api/carts', cartRouter);
 
 // Configuración de mongoose
 mongoose.connect(

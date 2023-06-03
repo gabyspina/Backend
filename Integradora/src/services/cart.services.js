@@ -1,17 +1,17 @@
-import { cartModel } from '../models/cart.model';
-
+import { cartModel } from '../models/cart.model.js';
 class CartService {
 	constructor() {
-		this.cartModel = [];
+		this.model = cartModel;
 	}
 
 	async addToCart(cart) {
 		cart.products = [];
-		const acrt = await this.cartModel.create(cart);
+		this.model.create(cart);
 	}
 
-	async getCart() {
-		const cart = await this.cartModel.find().lean();
+	async getAllCarts() {
+		const carts = await this.model.find().lean();
+		return carts;
 	}
 }
 
