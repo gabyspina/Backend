@@ -12,25 +12,25 @@ class ProductService {
 	async addProduct(product) {
 		return await this.productModel.create(product);
 	}
-	async getProductById(pid) {
-		if (!pid) {
+	async getProductById(pId) {	
+		if (!pId) {
 			throw new Error('Falta ID');
 		}
-		return await this.productModel.findById(pid);
+		return await this.productModel.findById(pId);
 	}
 
-	async updateProduct(pid, product) {
-		if (!pid) {
+	async updateProduct(pId, product) {
+		if (!pId) {
 			throw new Error('Falta ID');
 		}
-		return await this.productModel.updateOne({ _id: pid }, product);
+		return await this.productModel.updateOne({ _id: pId }, product);
 	}
 
-	async deleteProduct(pid) {
-		if (!pid) {
+	async deleteProduct(pId) {
+		if (!pId) {
 			throw new Error('Falta ID');
 		}
-		return await this.productModel.deleteOne({ _id: pid });
+		return await this.productModel.deleteOne({ _id: pId });
 	}
 }
 

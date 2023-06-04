@@ -21,5 +21,15 @@ cartRouter.post('/', async (req, res) => {
 		res.status(500).send(error);
 	}
 });
+cartRouter.post('/:cartId', async (req, res) => {
+	const cartId = req.params.cartId;
+	const productId = req.body.pId;
+	try {
+		const cartAdd = await cartService.addProductToCart(cartId, productId);
+		res.send(cartAdd);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
 
 export default cartRouter;
