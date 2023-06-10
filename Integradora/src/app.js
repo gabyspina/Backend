@@ -28,7 +28,7 @@ app.use(express.static('public'));
 app.use('/api/products', productRouter);
 app.use('/', viewsRouter);
 app.use('/api/carts', cartRouter);
-app.use('/api/chat', chatRouter)
+app.use('/api/chat', chatRouter);
 
 // Configuración de mongoose
 mongoose.connect(
@@ -49,7 +49,6 @@ io.on('connection', async (socket) => {
 		console.log(error);
 	}
 
-
 	socket.on('carga', async (product) => {
 		try {
 			const newProduct = await productService.addProduct(product);
@@ -60,26 +59,10 @@ io.on('connection', async (socket) => {
 			console.log(error);
 		}
 	});
-});
 
-// Eventos de socket.io
-io.on('connection', (socket) => {
-	// Envio los mensajes al cliente que se conectó
-	socket.emit('messages', messages);
-
-	// Escucho los mensajes enviado por el cliente y se los propago a todos
-	socket.on('message', (message) => {
+	socket.on('new-message', (message) => {
 		console.log(message);
-		// Agrego el mensaje al array de mensajes
 		messages.push(message);
-		// Propago el evento a todos los clientes conectados
 		io.emit('messages', messages);
 	});
-
-	socket.on('sayhello', (data) => {
-		socket.broadcast.emit('connected', data);
-	});
 });
-
-
-
