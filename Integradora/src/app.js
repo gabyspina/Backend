@@ -5,6 +5,7 @@ import { Server } from 'socket.io';
 
 import cartRouter from './routers/cart.router.js';
 import productRouter from './routers/product.router.js';
+import chatRouter from './routers/chat.router.js';
 import viewsRouter from './routers/views.router.js';
 import { productService } from './services/product.services.js';
 
@@ -27,10 +28,11 @@ app.use(express.static('public'));
 app.use('/api/products', productRouter);
 app.use('/', viewsRouter);
 app.use('/api/carts', cartRouter);
+app.use('/api/chat', chatRouter)
 
 // Configuración de mongoose
 mongoose.connect(
-	'mongodb+srv://gabyspina:gsp246813579@coderclaster.gnpohje.mongodb.net/ecommerce?retryWrites=true&w=majority'
+	'mongodb+srv://canuzamdq:boca2011@cluster0.ynmu0on.mongodb.net/ecommerce?retryWrites=true&w=majority'
 );
 
 const server = app.listen(8080, () => {
@@ -42,9 +44,11 @@ const io = new Server(server);
 io.on('connection', async (socket) => {
 	try {
 		socket.emit('realTimeProducts', await productService.getAllProducts());
+		socket.emit('messages', messages);
 	} catch (error) {
 		console.log(error);
 	}
+
 
 	socket.on('carga', async (product) => {
 		try {
@@ -57,3 +61,25 @@ io.on('connection', async (socket) => {
 		}
 	});
 });
+
+// Eventos de socket.io
+io.on('connection', (socket) => {
+	// Envio los mensajes al cliente que se conectó
+	socket.emit('messages', messages);
+
+	// Escucho los mensajes enviado por el cliente y se los propago a todos
+	socket.on('message', (message) => {
+		console.log(message);
+		// Agrego el mensaje al array de mensajes
+		messages.push(message);
+		// Propago el evento a todos los clientes conectados
+		io.emit('messages', messages);
+	});
+
+	socket.on('sayhello', (data) => {
+		socket.broadcast.emit('connected', data);
+	});
+});
+
+
+

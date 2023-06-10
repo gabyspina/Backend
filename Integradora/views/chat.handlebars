@@ -1,9 +1,14 @@
-
 <section>
-	<div id="title">Chat</div>
-	<form action="" id="chat">
-		<input type="text" id="username" placeholder="Username">
-		<input type="text" id="message" placeholder="Message">
-		<input type="submit" onclick="sendMessage()" value="Send">
-		
+	<div id='Title'>Bienvenido al Chatt</div>
+	<div id='messages'></div>
+	<div>
+		<input type='text' id='msj' />
+	</div>
+
 </section>
+
+<script
+	src='https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js'
+></script>
+<script src='/socket.io/socket.io.js'></script>
+<script src='/js/main.js'></script>
