@@ -1,58 +1,65 @@
 const socket = io();
-let user;
+//let user;
 
-const inputMje = document.getElementById('message');
+let newProduct = document.getElementById('carga');
 
-Swal.fire({
-	title: 'Bienvenido!',
-	input: 'text',
-	text: 'Ingresa tu nombre de usuario',
-	inputPlaceholder: 'Nombre de usuario',
-	allowOutsideClick: false,
-	allowEscapeKey: false,
-	allowEnterKey: false,
-	showCancelButton: false,
-	confirmButtonText: 'Ingresar',
-	inputValidator: (value) => {
-		if (!value) {
-			return 'Debes ingresar tu nombre de usuario!';
-		} else {
-			user = value;
-		}
-	},
-}).then(() => {
-	socket.emit('newUser', user);
-});
+// Swal.fire({
+// 	title: 'Bienvenido!',
+// 	input: 'text',
+// 	text: 'Ingresa tu nombre de usuario',
+// 	inputPlaceholder: 'Nombre de usuario',
+// 	allowOutsideClick: false,
+// 	allowEscapeKey: false,
+// 	allowEnterKey: false,
+// 	showCancelButton: false,
+// 	confirmButtonText: 'Ingresar',
+// 	inputValidator: (value) => {
+// 		if (!value) {
+// 			return 'Debes ingresar tu nombre de usuario!';
+// 		} else {
+// 			user = value;
+// 		}
+// 	},
+// }).then(() => {
+// 	socket.emit('newUser', user);
+// });
 
-function sendMessage() {
-	let msj = inputMje.value;
-	if (msj.trim().length > 0) {
-		socket.emit('message', { msj, user });
-		inputMje.value = '';
-	}
-}
-
-function renderMessages(messages) {
-	let html = messages
-		.map((m) => {
-			return `
-            <div>
-                <strong>${m.user}</strong>
-                <span>${m.msj}</span>
-            </div>
-        `;
+function render(data) {
+	let html = data
+		.map((elem, index) => {
+			return `<div id='divProducts' data-id="${index}" >
+			<strong>${elem.title}</strong>
+			<em>${elem.description}</em>
+			<em>${elem.code}</em>
+			<em>${elem.price}</em>
+			<em>${elem.stock}</em>
+			<em>${elem.categoty}</em>
+			<em>${elem.thumbnail}</em>
+			<em>${elem.status}</em>
+			
+			</div>`;
 		})
 		.join(' ');
-	document.getElementById('messages').innerHTML = html;
+
+	document.getElementById('realTimeProducts').innerHTML = html;
 }
 
-inputMje.addEventListener('keyup', (e) => {
-	if (e.key === 'Enter') {
-		e.preventDefault();
-		sendMessage();
-	}
+newProduct.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const product = {
+		title: document.getElementById('title').value,
+		description: document.getElementById('description').value,
+		code: document.getElementById('code').value,
+		price: document.getElementById('price').value,
+		stock: document.getElementById('stock').value,
+		category: document.getElementById('category').value,
+		thumbnail: document.getElementById('thumbnail').value,
+		status: document.getElementById('status').value,
+	};
+	socket.emit('carga', product);
+	newProduct.reset();
 });
 
-socket.on('messages', (data) => {
-	renderMessages(data);
+socket.on('realTimeProducts', (product) => {
+	return render(product);
 });

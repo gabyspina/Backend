@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<h1>Carga de productos</h1>
-		<form action="/api/products" method="post" >
+		<form id="carga">
 			<div class="col-md-4">
 				<label for="title">Title</label>
 				<input type="text" name="title" placeholder="Title" class="form-control" id="title" >	
@@ -39,42 +39,44 @@
 				<button type="submit" class="btn btn-primary">Enviar</button>
 			</div>
 
-
-
+		<div id="realTimeProducts"></div>
+{{!-- 
     <div class="col-md-12">
         <h1>Products</h1>
         <table class='table'>
-	<thead>
-		<tr>
-			<th scope='col'>ID</th>
-			<th scope='col'>Title</th>
-			<th scope='col'>Description</th>
-			<th scope='col'>Code</th>
-			<th scope='col'>Price</th>
-			<th scope='col'>Stock</th>
-			<th scope='col'>Status</th>
-			<th scope='col'>Category</th>
-			<th scope='col'>Thumbnail</th>
-		</tr>
-	</thead>
-	<tbody>
-      	{{#each products}}
-			<tr>
-				<th scope='row'>{{this._id}}  </th>
-				<td>{{this.title}} </td>
-				<td>{{this.description}} </td>
-				<td>{{this.code}} </td>
-				<td>{{this.price}} </td>
-				<td>{{this.stock}} </td>
-				<td>{{this.status}} </td>
-				<td>{{this.category}} </td>
-				<td>{{this.thumbnail}} </td>
-			</tr>
-		{{/each}}
-	</tbody>
-</table>
+			<thead>
+				<tr>
+					<th scope='col'>ID</th>
+					<th scope='col'>Title</th>
+					<th scope='col'>Description</th>
+					<th scope='col'>Code</th>
+					<th scope='col'>Price</th>
+					<th scope='col'>Stock</th>
+					<th scope='col'>Status</th>
+					<th scope='col'>Category</th>
+					<th scope='col'>Thumbnail</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each products}}
+					<tr>
+						<th scope='row'>{{this._id}}  </th>
+						<td>{{this.title}} </td>
+						<td>{{this.description}} </td>
+						<td>{{this.code}} </td>
+						<td>{{this.price}} </td>
+						<td>{{this.stock}} </td>
+						<td>{{this.status}} </td>
+						<td>{{this.category}} </td>
+						<td>{{this.thumbnail}} </td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
 	</div>
-    </div>
+
+
+    </div> --}}
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src='/socket.io/socket.io.js'></script>

@@ -16,6 +16,7 @@ productRouter.post('/', async (req, res) => {
 	const product = req.body;
 	try {
 		const newProduct = await productService.addProduct(product);
+		io.emit('newProduct', newProduct);
 		res.send(newProduct);
 	} catch (error) {
 		res.status(500).send(error);

@@ -6,6 +6,7 @@ import { Server } from 'socket.io';
 import cartRouter from './routers/cart.router.js';
 import productRouter from './routers/product.router.js';
 import viewsRouter from './routers/views.router.js';
+import { productService } from './services/product.services.js';
 
 const app = express();
 const messages = [];
@@ -38,13 +39,21 @@ const server = app.listen(8080, () => {
 
 const io = new Server(server);
 
-io.on('connection', (socket) => {
-	console.log('Un cliente se ha conectado');
-	socket.emit('messages', messages);
+io.on('connection', async (socket) => {
+	try {
+		socket.emit('realTimeProducts', await productService.getAllProducts());
+	} catch (error) {
+		console.log(error);
+	}
 
-	socket.on('newMessage', (data) => { 
-		messages.push(data);
-		io.sockets.emit('messages', messages);
-	}	);
+	socket.on('carga', async (product) => {
+		try {
+			const newProduct = await productService.addProduct(product);
+			const updatedProducts = await productService.getAllProducts();
 
+			io.emit('realTimeProducts', updatedProducts);
+		} catch (error) {
+			console.log(error);
+		}
+	});
 });
