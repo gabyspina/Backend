@@ -6,7 +6,7 @@ if (page === 'products') {
 	function render(data) {
 		let html = data
 			.map((elem, index) => {
-				return `<div id='divProducts' data-id="${index}" >
+				return `<div id='divProducts' data-id="${index}">
 			<strong>${elem.title}</strong>
 			<em>${elem.description}</em>
 			<em>${elem.code}</em>

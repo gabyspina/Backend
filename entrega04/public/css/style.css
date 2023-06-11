@@ -1,0 +1,86 @@
+#main {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: row ;
+
+}
+
+#title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 5px;
+    
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    
+}
+
+#newProduct {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightgray;
+}
+
+#btnSend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    background-color: navy;
+    border: none;
+    color: azure;
+    border-radius: 5px;
+
+}
+#addProduct {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    border: 1px solid;
+    border-radius: 5px;
+    
+}
+
+#realTimeProducts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    overflow-y: auto;
+    border: 1px solid;
+    border-radius: 5px;
+    
+}
+
+#divProductos {
+    display: flex;    
+    width: 90%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #D5ECFF;
+    border-radius: 5px;
+    justify-content: space-between;
+
+}
+
+#delProduct {
+    background-color: red;
+    color: azure;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}

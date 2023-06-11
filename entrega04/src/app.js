@@ -2,46 +2,70 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
 
-import ProductController from './controllers/productsController.js';
-import viewsRouter from './routes/views.router.js';
-import productRouter from './routes/products.router.js';
+import ProductManager from '../productManager.js';
+const productmanager = new ProductManager();
+const product = [];
 
-
-const productController = new ProductController();
+//Routes
+import { productsRouter } from './routes/products.router.js';
+import { cartsRouter } from './routes/carts.router.js';
+import { viewsRouter } from './routes/views.router.js'; // Handlebars
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// Seteo carpeta estatica
+app.use(express.static('public'));
+
+// Set handlebars
 app.engine('handlebars', handlebars.engine());
-app.set('views', './views');
+app.set('views', 'views/');
 app.set('view engine', 'handlebars');
 
-app.use(express.json());
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
+//Uso rutas
+app.use('/api/products', productsRouter); // Utilizo ruta de products para "/api/products"
+app.use('/api/carts', cartsRouter); // Utiliza ruta de cartspara "/api/carts"
+app.use('/', viewsRouter); //HANDLEBARS - utiliza la ruta '/' (raiz)
+app.use('/realtimeproducts', viewsRouter); // HANDLREBARS + SOKET IO
 
-app.use('/api/products', productRouter);
-app.use('/', viewsRouter);
-
+// Escucho puero 8080
 const webServer = app.listen(8080, () => {
-	console.log('Server is running on port 8080');
+	console.log('Escuchando puerto 8080...');
 });
 
+// Inicialización de socket.io
 const io = new Server(webServer);
 
+// Cuando se conecta un cliente se envia la lista de productos
 io.on('connection', async (socket) => {
 	try {
-		socket.emit('realTimeProducts', await productController.getProducts());
+		socket.emit('realTimeProducts', await productmanager.getProducts());
 	} catch (err) {
 		console.log(err);
 	}
 
-	socket.on('carga', async (product) => {
+	socket.on('addProduct', async (product) => {
 		try {
-			const newProduct = await productController.addProduct(product);
-			const updatedProducts = await productController.getProducts();
-			io.emit('realTimeProducts', updatedProducts);
+			await productmanager.addProduct(product);
 		} catch (err) {
 			console.log(err);
 		}
+	});
+
+	socket.on('deleteProduct', async (productId) => {
+		try {
+			await productmanager.deleteProduct(productId);
+		} catch (err) {
+			console.log(err);
+		}
+
+		socket.on('modifyProduct', async (productId) => {
+			try {
+				await productmanager.updateProduct(productId);
+			} catch (err) {
+				console.log(err);
+			}
+		});
 	});
 });
