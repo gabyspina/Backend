@@ -8,6 +8,7 @@ import productRouter from './routers/product.router.js';
 import chatRouter from './routers/chat.router.js';
 import viewsRouter from './routers/views.router.js';
 import { productService } from './services/product.services.js';
+import { chatService } from './services/chat.services.js';
 
 const app = express();
 const messages = [];
@@ -32,7 +33,7 @@ app.use('/api/chat', chatRouter);
 
 // Configuración de mongoose
 mongoose.connect(
-	'mongodb+srv://canuzamdq:boca2011@cluster0.ynmu0on.mongodb.net/ecommerce?retryWrites=true&w=majority'
+	'mongodb+srv://gabyspina:gsp246813579@coderclaster.gnpohje.mongodb.net/ecommerce?retryWrites=true&w=majority'
 );
 
 const server = app.listen(8080, () => {
@@ -44,7 +45,7 @@ const io = new Server(server);
 io.on('connection', async (socket) => {
 	try {
 		socket.emit('realTimeProducts', await productService.getAllProducts());
-		socket.emit('messages', messages);
+		socket.emit('messages', await chatService.getAllMessages());
 	} catch (error) {
 		console.log(error);
 	}

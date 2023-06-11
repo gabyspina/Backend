@@ -3,10 +3,7 @@ const socket = io();
 
 let newProduct = document.getElementById('carga');
 
-function sendMessages() {
-		const message = document.getElementById('message').value;	
-		socket.emit('new-message', message);
-}
+let newMsj = document.getElementById('messages');
 
 // Swal.fire({
 // 	title: 'Bienvenido!',
@@ -49,18 +46,25 @@ function render(data) {
 	document.getElementById('realTimeProducts').innerHTML = html;
 }
 
+function sendMessage() {
+	const messageInput = document.getElementById('message');
+	const message = {
+		message: messageInput.value,
+	};
+	socket.emit('new-message', message);
+}
+
 function renderMessages(data) {
 	let html = data
 		.map((elem, index) => {
 			return `<div>
-			<em>${elem}</em>
-			</div>`
+			<em>${elem.message}</em>
+			</div>`;
 		})
 		.join(' ');
 
 	document.getElementById('messages').innerHTML = html;
 }
-
 
 newProduct.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -83,5 +87,5 @@ socket.on('realTimeProducts', (product) => {
 });
 
 socket.on('messages', (data) => {
-	renderMessages(data);
+	renderMessages(data.messages);
 });

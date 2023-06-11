@@ -12,7 +12,7 @@ class ProductService {
 	async addProduct(product) {
 		return await this.productModel.create(product);
 	}
-	async getProductById(pId) {	
+	async getProductById(pId) {
 		if (!pId) {
 			throw new Error('Falta ID');
 		}
