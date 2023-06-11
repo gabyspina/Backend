@@ -1,16 +1,11 @@
 import mongoose from "mongoose";
 
 const chatSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        require: true,
-        max: 100,
-    },
-    message: {
-        type: String,
-        require: true,
-        max: 100,
-    }
+    user: String,
+    message: String,
+    timestamp: { type: Date, default: Date.now },
 });
 
-export const chatModel = mongoose.model('chat', chatSchema);
+const chatModel = mongoose.model("chat", chatSchema);
+
+export default chatModel;

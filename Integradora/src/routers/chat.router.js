@@ -6,22 +6,11 @@ const chatRouter = Router();
 
 // Definimos la ruta para el home
 chatRouter.get('/', async (req, res) => {
-	try {
-		const chat = await chatService.getAllMessages();
-		res.send(chat);
-	} catch (error) {
-		res.status(500).send(error);
-	}
+	res.render('chat');
 });
 
-chatRouter.post('/', async (req, res) => {
-	const message = req.body;
-	try {
-		const newMessage = await chatService.addMessage(message);
-		res.send(newMessage);
-	} catch (error) {
-		res.status(500).send(error);
-	}
+chatRouter.get('/savedChats/', async (req, res) => {
+	res.send(chatService.getChat());
 });
 
 // Exportamos el router

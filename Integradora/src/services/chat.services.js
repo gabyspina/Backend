@@ -1,17 +1,27 @@
-import { chatModel } from "../models/chat.model.js";
-
+import chatModel from '../models/chat.model.js';
 class ChatService {
-    constructor() {
-        this.chatModel = chatModel;
-    }
+	constructor() {
+		this.chatModel = chatModel;
+	}
 
-    async getAllMessages() {
-        return await this.chatModel.find().lean();
-    }
+	async saveChat(data) {
+		try {
+			const newMessage = data;
+			return await this.chatModel.create(newMessage);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
-    async addMessage(message) {
-        return await this.chatModel.create(message);
-    }
+	async getChat() {
+		try {
+			const messages = await this.chatModel.find().sort({ timestamo: 1 });
+			return messages;
+		} catch (error) {
+			console.log(error);
+			return [];
+		}
+	}
 }
 
 export const chatService = new ChatService();

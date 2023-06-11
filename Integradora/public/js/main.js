@@ -1,35 +1,12 @@
 const socket = io();
-//let user;
 
-let newProduct = document.getElementById('carga');
+if (page === 'products') {
+	let newProduct = document.getElementById('carga');
 
-let newMsj = document.getElementById('messages');
-
-// Swal.fire({
-// 	title: 'Bienvenido!',
-// 	input: 'text',
-// 	text: 'Ingresa tu nombre de usuario',
-// 	inputPlaceholder: 'Nombre de usuario',
-// 	allowOutsideClick: false,
-// 	allowEscapeKey: false,
-// 	allowEnterKey: false,
-// 	showCancelButton: false,
-// 	confirmButtonText: 'Ingresar',
-// 	inputValidator: (value) => {
-// 		if (!value) {
-// 			return 'Debes ingresar tu nombre de usuario!';
-// 		} else {
-// 			user = value;
-// 		}
-// 	},
-// }).then(() => {
-// 	socket.emit('newUser', user);
-// });
-
-function render(data) {
-	let html = data
-		.map((elem, index) => {
-			return `<div id='divProducts' data-id="${index}" >
+	function render(data) {
+		let html = data
+			.map((elem, index) => {
+				return `<div id='divProducts' data-id="${index}" >
 			<strong>${elem.title}</strong>
 			<em>${elem.description}</em>
 			<em>${elem.code}</em>
@@ -40,52 +17,88 @@ function render(data) {
 			<em>${elem.status}</em>
 			
 			</div>`;
-		})
-		.join(' ');
+			})
+			.join(' ');
 
-	document.getElementById('realTimeProducts').innerHTML = html;
+		document.getElementById('realTimeProducts').innerHTML = html;
+	}
+
+	newProduct.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const product = {
+			title: document.getElementById('title').value,
+			description: document.getElementById('description').value,
+			code: document.getElementById('code').value,
+			price: document.getElementById('price').value,
+			stock: document.getElementById('stock').value,
+			category: document.getElementById('category').value,
+			thumbnail: document.getElementById('thumbnail').value,
+			status: document.getElementById('status').value,
+		};
+		socket.emit('carga', product);
+		newProduct.reset();
+	});
+	socket.on('realTimeProducts', (product) => {
+		return render(product);
+	});
 }
 
-function sendMessage() {
-	const messageInput = document.getElementById('message');
-	const message = {
-		message: messageInput.value,
-	};
-	socket.emit('new-message', message);
-}
+if (page === 'chat') {
+	let user;
+	let inputMsj = document.getElementById('msj');
+	const sendBtn = document.getElementById('sendBtn');
 
-function renderMessages(data) {
-	let html = data
-		.map((elem, index) => {
-			return `<div>
-			<em>${elem.message}</em>
+	Swal.fire({
+		title: 'Bienvenido',
+		input: 'text',
+		text: 'Identifícate para participar en el PiolaChat',
+		icon: 'success',
+		inputValidator: (value) => {
+			return !value && 'Debes identificarte para participar.';
+		},
+		allowOutsideClick: false,
+	}).then((result) => {
+		user = result.value;
+		socket.emit('sayhello', user);
+	});
+
+	function sendMessage() {
+		const msj = inputMsj.value;
+		if (msj.trim().length > 0) {
+			socket.emit('message', { user, msj });
+			inputMsj.value = '';
+		}
+	}
+
+	sendBtn.addEventListener('click', sendMessage);
+	inputMsj.addEventListener('keyup', (e) => {
+		if (e.key === 'Enter') {
+			sendMessage();
+		}
+	});
+
+	function renderChat(data) {
+		let html = data
+			.map((elem) => {
+				return `<div>
+			<strong>${elem.user}</strong>
+			<em>${elem.msj}</em>
 			</div>`;
-		})
-		.join(' ');
+			})
+			.join(' ');
 
-	document.getElementById('messages').innerHTML = html;
+		document.getElementById('messages').innerHTML = html;
+	}
+
+	socket.on('messages', (data) => {
+		renderChat(data);
+	});
+
+	socket.on('connected', (data) => {
+		Swal.fire({
+			text: `Se ha conectado ${data.user}`,
+			toast: true,
+			position: 'top-right',
+		});
+	});
 }
-
-newProduct.addEventListener('submit', (e) => {
-	e.preventDefault();
-	const product = {
-		title: document.getElementById('title').value,
-		description: document.getElementById('description').value,
-		code: document.getElementById('code').value,
-		price: document.getElementById('price').value,
-		stock: document.getElementById('stock').value,
-		category: document.getElementById('category').value,
-		thumbnail: document.getElementById('thumbnail').value,
-		status: document.getElementById('status').value,
-	};
-	socket.emit('carga', product);
-	newProduct.reset();
-});
-
-socket.on('realTimeProducts', (product) => {
-	return render(product);
-});
-
-socket.on('messages', (data) => {
-	renderMessages(data.messages);
-});

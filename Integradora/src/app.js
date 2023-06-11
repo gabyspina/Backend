@@ -45,7 +45,6 @@ const io = new Server(server);
 io.on('connection', async (socket) => {
 	try {
 		socket.emit('realTimeProducts', await productService.getAllProducts());
-		socket.emit('messages', await chatService.getAllMessages());
 	} catch (error) {
 		console.log(error);
 	}
@@ -60,10 +59,26 @@ io.on('connection', async (socket) => {
 			console.log(error);
 		}
 	});
+	try {
+		socket.emit('messages', messages);
+	} catch (error) {
+		console.log(error);
+	}
 
-	socket.on('new-message', (message) => {
-		console.log(message);
-		messages.push(message);
-		io.emit('messages', messages);
+	socket.on('message', async (message) => {
+		try {
+			const chatData = {
+				email: message.email,
+				message: message.msj,
+			};
+			messages.push(message);
+			io.emit('messages', messages);
+			await chatService.saveChat(chatData);
+		} catch (error) {
+			console.log(error);
+		}
+	});
+	socket.on('sayHello', (data) => {
+		socket.broadcast.emit('connected', data);
 	});
 });
