@@ -168,5 +168,35 @@
 		"category": "vehiculo",
 		"thumbnail": "jjjjj",
 		"id": 17
+	},
+	{
+		"title": "coca",
+		"description": "cola",
+		"code": "gaseosa",
+		"price": 300,
+		"stock": 10,
+		"category": "bebida",
+		"thumbnail": "jjjjj",
+		"id": 18
+	},
+	{
+		"title": "reloj",
+		"description": "digital",
+		"code": "rlj",
+		"price": 300,
+		"stock": 10,
+		"category": "reloj",
+		"thumbnail": "jjjjj",
+		"id": 19
+	},
+	{
+		"title": "perro",
+		"description": "lindo",
+		"code": "auto",
+		"price": 15000,
+		"stock": 10,
+		"category": "vehiculo",
+		"thumbnail": "jjjjj",
+		"id": 20
 	}
 ]

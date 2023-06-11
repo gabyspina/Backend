@@ -36,11 +36,11 @@ mongoose.connect(
 	'mongodb+srv://gabyspina:gsp246813579@coderclaster.gnpohje.mongodb.net/ecommerce?retryWrites=true&w=majority'
 );
 
-const server = app.listen(8080, () => {
+const webServer = app.listen(8080, () => {
 	console.log('Server started on port 8080');
 });
 
-const io = new Server(server);
+const io = new Server(webServer);
 
 io.on('connection', async (socket) => {
 	try {

@@ -1,53 +1,128 @@
-<div id='title'>
-	<h1>Products</h1>
+<div class='container'>
+	<div class='row'>
+		<div class='col-md-12'>
+			<h1>Carga de productos</h1>
+			<form id='carga'>
+				<div class='col-md-4'>
+					<label for='title'>Title</label>
+					<input
+						type='text'
+						name='title'
+						placeholder='Title'
+						class='form-control'
+						id='title'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<label for='description'>Description</label>
+					<input
+						type='text'
+						name='description'
+						placeholder='Description'
+						class='form-control'
+						id='description'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<label for='code'>Code</label>
+					<input
+						type='text'
+						name='code'
+						placeholder='Code'
+						class='form-control'
+						id='code'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<label for='price'>Price</label>
+					<input
+						type='number'
+						name='price'
+						placeholder='Price'
+						class='form-control'
+						id='price'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<label for='stock'>Stock</label>
+					<input
+						type='number'
+						name='stock'
+						placeholder='Stock'
+						class='form-control'
+						id='stock'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<label for='status'>Status</label>
+					<input
+						type='text'
+						name='status'
+						placeholder='Status'
+						class='form-control'
+						id='status'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<label for='category'>Category</label>
+					<input
+						type='text'
+						name='category'
+						placeholder='Category'
+						class='form-control'
+						id='category'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<label for='thumbnail'>Thumbnail</label>
+					<input
+						type='text'
+						name='thumbnail'
+						placeholder='Thumbnail'
+						class='form-control'
+						id='thumbnail'
+					/>
+				</div>
+				<div class='col-md-4'>
+					<button type='submit' class='btn btn-primary'>Enviar</button>
+				</div>
+			</form>
+
+			<div id='realTimeProducts'>
+				<h1>Productos en tiempo real</h1>
+				<table class='table table-bordered'>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Code</th>
+							<th>Price</th>
+							<th>Stock</th>
+							<th>Status</th>
+							<th>Category</th>
+							<th>Thumbnail</th>
+						</tr>
+					</thead>
+					<tbody id='realTimeProducts'>
+						{{#each products}}
+							<tr data-id='{{@index}}'>
+								<td><strong>{{this.title}}</strong></td>
+								<td>{{this.price}}</td>
+								<td>{{this.description}}</td>
+								<td>{{this.category}}</td>
+								<td>{{this.code}}</td>
+								<td>{{this.stock}}</td>
+								<td>{{this.thumbnail}}</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div id='main'>
-	<div id='addProducts'>
-		<h2>Add Products</h2>
-
-		<form id='form'>
-			<input type='text' required id='title' name='title' placeholder='title' />
-			<input type='text' required id='price' name='price' placeholder='price' />
-			<input
-				type='text'
-				required
-				id='description'
-				name='description'
-				placeholder='description'
-			/>
-			<input
-				type='text'
-				required
-				id='thumbnail'
-				name='thumbnail'
-				placeholder='thumbnail'
-			/>
-			<input type='text' required id='stock' name='stock' placeholder='stock' />
-			<input
-				type='text'
-				required
-				id='category'
-				name='category'
-				placeholder='category'
-			/>
-			<input type='text' required id='code' name='code' placeholder='code' />
-			<button type='submit'>Add Product</button>
-
-		</form>
-
-	</div>
-
-	<div id='products'>
-
-	</div>
-
-</div>
-
-<script
-	src='
-https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js
-'
-></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script src='/socket.io/socket.io.js'></script>
-<script src='/public/js/index.js'></script>
+<script src='/js/main .js'></script>

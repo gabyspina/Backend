@@ -1,10 +1,11 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
+import { Server } from 'socket.io';
 
 import ProductController from './controllers/productsController.js';
-import { viewsRouter } from './routes/views.router.js';
+import viewsRouter from './routes/views.router.js';
 import productRouter from './routes/products.router.js';
-import { Server } from 'socket.io';
+
 
 const productController = new ProductController();
 
@@ -20,7 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/products', productRouter);
 app.use('/', viewsRouter);
-app.use('/products', viewsRouter);
 
 const webServer = app.listen(8080, () => {
 	console.log('Server is running on port 8080');
@@ -28,41 +28,20 @@ const webServer = app.listen(8080, () => {
 
 const io = new Server(webServer);
 
-// io.on('connection', async (socket) => {
-// 	console.log('New connection');
-// 	try {
-// 		socket.emit('products', await productController.getProducts());
-// 	} catch (err) {
-// 		console.log(err);
-// 	}
+io.on('connection', async (socket) => {
+	try {
+		socket.emit('realTimeProducts', await productController.getProducts());
+	} catch (err) {
+		console.log(err);
+	}
 
-// 	socket.on('new-product', async (data) => {
-// 		try {
-// 			await productController.addProduct(data);
-// 		} catch (err) {
-// 			console.log(err);
-// 		}
-// 	});
-
-// 	socket.on('delete-product', async (id) => {
-// 		try {
-// 			await productController.deleteProduct(id);
-// 		} catch (err) {
-// 			console.log(err);
-// 		}
-// 	});
-
-// 	socket.on('update-product', async (data) => {
-// 		try {
-// 			await productController.updateProduct(data);
-// 		} catch (err) {
-// 			console.log(err);
-// 		}
-// 	});
-// });
-io.on('connection', (socket) => {
-	console.log('New connection');
-	socket.emit('products', 'hola')
+	socket.on('carga', async (product) => {
+		try {
+			const newProduct = await productController.addProduct(product);
+			const updatedProducts = await productController.getProducts();
+			io.emit('realTimeProducts', updatedProducts);
+		} catch (err) {
+			console.log(err);
+		}
+	});
 });
-
-	

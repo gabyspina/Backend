@@ -5,10 +5,14 @@ const productRouter = Router();
 const productController = new ProductController();
 
 productRouter.post('/', async (req, res) => {
-	const product = req.body;
-	const productController = new ProductController();
-	const result = await productController.addProduct(product);
-	res.json(result);
+    try {
+        const product = req.body;
+        const newProduct = await productController.addProduct(product);
+        res.status(201).json(newProduct);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Error al agregar el producto' });
+    }
 });
 
 productRouter.get('/', async (req, res) => {

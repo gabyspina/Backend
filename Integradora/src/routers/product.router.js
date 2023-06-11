@@ -1,4 +1,4 @@
- import { Router } from 'express';
+import { Router } from 'express';
 import { productService } from '../services/product.services.js';
 
 const productRouter = Router();

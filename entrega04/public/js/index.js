@@ -1,50 +1,41 @@
 const socket = io();
 
-let newProduct = document.getElementById('form');
+let newProduct = document.getElementById('carga');
+let productsContainer = document.getElementById('products');
 
 function render(data) {
 	const html = data
 		.map((elem, index) => {
-			return `<tr>
-    <td>${elem.title}</td>
+			return `<tr id='divProducts' data-id='${index}'>
+    <td><strong>${elem.title}</strong></td>
     <td>${elem.price}</td>
-    <td><img src="${elem.thumbnail}" width="50px" height="50px"></td>
+	<td>${elem.description}</td>
+	<td>${elem.category}</td>
+	<td>${elem.code}</td>
+	<td>${elem.stock}</td>
+	<td>${elem.thumbnail}</td>
     </tr>`;
 		})
 		.join(' ');
-	document.getElementById('products').innerHTML = html;
-
-	socket.emit('delete-product', id);
-	socket.emit('update-product', data);
+	document.getElementById('realTimeProducts').innerHTML = html;
 }
 
 newProduct.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const title = document.querySelector('input[name="title"]').value;
-	const category = document.querySelector('input[name="category"]').value;
-	const description = document.querySelector('input[name="description"]').value;
-	const price = document.querySelector('input[name="price"]').value;
-	const code = document.querySelector('input[name="code"]').value;
-	const stock = document.querySelector('input[name="stock"]').value;
-
 	const product = {
-		title: title,
-		category: category,
-		description: description,
-		price: price,
-		code: code,
-		stock: stock,
+		title: document.getElementById('title').value,
+		category: document.getElementById('category').value,
+		description: document.getElementById('description').value,
+		price: document.getElementById('price').value,
+		code: document.getElementById('code').value,
+		stock: document.getElementById('stock').value,
+		thumbnail: document.getElementById('thumbnail').value,
 	};
 
-	socket.emit('new-product', product);
+	socket.emit('carga', product);
 	newProduct.reset();
-	Swal.fire({
-		icon: 'success',
-		title: 'Producto agregado',
-		text: 'El producto se agregó correctamente',
-	});
 });
 
-socket.on('products', (data) => {
+socket.on('realTimeProducts', (data) => {
 	render(data);
 });
