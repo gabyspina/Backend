@@ -5,8 +5,13 @@ class ProductService {
 		this.productModel = productModel;
 	}
 
-	async getAllProducts() {
-		return await this.productModel.find().lean();
+	async getAllProducts(limit = 5, page = 1, category = false) {
+		const query = category ? { category } : {};
+		return await this.productModel.paginate(query, {
+			lean: true,
+			limit,
+			page,
+		});
 	}
 
 	async addProduct(product) {

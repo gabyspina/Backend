@@ -5,9 +5,9 @@ const viewsRouter = Router();
 
 viewsRouter.get('/', async (req, res) => {
 	try {
-		const products = await productService.getAllProducts();
-
-		res.render('products', { products });
+		const { limit, page } = req.query;
+		const data = await productService.getAllProducts(limit, page);
+		res.render('products', data);
 	} catch (error) {
 		res.render('error');
 	}

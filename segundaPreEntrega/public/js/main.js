@@ -7,16 +7,15 @@ if (page === 'products') {
 		let html = data
 			.map((elem, index) => {
 				return `<div id='divProducts' data-id="${index}">
-			<strong>${elem.title}</strong>
+        <strong>${elem.title}</strong>
 			<em>${elem.description}</em>
 			<em>${elem.code}</em>
 			<em>${elem.price}</em>
 			<em>${elem.stock}</em>
-			<em>${elem.categoty}</em>
+			<em>${elem.category}</em>
 			<em>${elem.thumbnail}</em>
 			<em>${elem.status}</em>
-			
-			</div>`;
+        </div>`;
 			})
 			.join(' ');
 
@@ -38,6 +37,7 @@ if (page === 'products') {
 		socket.emit('carga', product);
 		newProduct.reset();
 	});
+
 	socket.on('realTimeProducts', (product) => {
 		return render(product);
 	});
@@ -81,9 +81,9 @@ if (page === 'chat') {
 		let html = data
 			.map((elem) => {
 				return `<div>
-			<strong>${elem.user}</strong>
-			<em>${elem.msj}</em>
-			</div>`;
+          <strong>${elem.user}</strong>
+          <em>${elem.msj}</em>
+        </div>`;
 			})
 			.join(' ');
 
