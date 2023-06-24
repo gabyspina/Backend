@@ -1,0 +1,6 @@
+.category {
+    width: 500px;
+    height: 300px;
+    background-color: blue;
+    display: flex;
+}

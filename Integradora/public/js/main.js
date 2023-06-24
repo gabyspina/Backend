@@ -7,16 +7,18 @@ if (page === 'products') {
 		let html = data
 			.map((elem, index) => {
 				return `<div id='divProducts' data-id="${index}">
-			<strong>${elem.title}</strong>
-			<em>${elem.description}</em>
-			<em>${elem.code}</em>
-			<em>${elem.price}</em>
-			<em>${elem.stock}</em>
-			<em>${elem.categoty}</em>
-			<em>${elem.thumbnail}</em>
-			<em>${elem.status}</em>
-			
-			</div>`;
+			<tr>
+				<td><strong> ${elem._id}</strong></td>
+				<td><strong> ${elem.title}</strong></td>
+				<td>${elem.description}</td>
+				<td>${elem.code}</td>
+				<td>${elem.price}</td>
+				<td>${elem.stock}</td>
+				<td>${elem.category}</td>
+				<td>${elem.thumbnail}</td>
+				<td>${elem.status}</td>
+			</tr>
+		</div>`;
 			})
 			.join(' ');
 
@@ -41,7 +43,7 @@ if (page === 'products') {
 	socket.on('realTimeProducts', (product) => {
 		return render(product);
 	});
-}
+} 
 
 if (page === 'chat') {
 	let user;

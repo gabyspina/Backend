@@ -1,116 +1,159 @@
-<div class="container" >
-<div class="row">
-	<div class="col-md-12">
-		<h1>Carga de productos</h1>
-		<form id="carga">
-			<div class="col-md-4">
-				<label for="title">Title</label>
-				<input type="text" name="title" placeholder="Title" class="form-control" id="title" >	
-			</div>
-			<div class="col-md-4">
-				<label for="description">Description</label>
-				<input type="text" name="description" placeholder="Description" class="form-control" id="description" >
-			</div>
-			<div class="col-md-4">
-				<label for="code">Code</label>
-				<input type="text" name="code" placeholder="Code" class="form-control" id="code" >
-			</div>
-			<div class="col-md-4">
-				<label for="price">Price</label>
-				<input type="number" name="price" placeholder="Price" class="form-control" id="price" >
-			</div>
-			<div class="col-md-4">
-				<label for="stock">Stock</label>
-				<input type="number" name="stock" placeholder="Stock" class="form-control" id="stock" >
-			</div>
-			<div class="col-md-4">
-				<label for="status">Status</label>
-				<input type="text" name="status" placeholder="Status" class="form-control" id="status" >
-			</div>
-			<div class="col-md-4">
-				<label for="category">Category</label>
-				<input type="text" name="category" placeholder="Category" class="form-control" id="category" >
-			</div>
-			<div class="col-md-4">
-				<label for="thumbnail">Thumbnail</label>
-				<input type="text" name="thumbnail" placeholder="Thumbnail" class="form-control" id="thumbnail" >
-			</div>
-			<div class="col-md-4">
-				<button type="submit" class="btn btn-primary">Enviar</button>
-			</div>
-
-		<div id="realTimeProducts"></div>
-
-    <div class="col-md-12">
-        <h1>Products</h1>
-		
-		
-
-
-		<div class="col-md-4">
-        <table class='table' id="productTable">
-			<thead>
-				<tr>
-					<th scope='col'>ID</th>
-					<th scope='col'>Title</th>
-					<th scope='col'>Description</th>
-					<th scope='col'>Code</th>
-					<th scope='col'>Price</th>
-					<th scope='col'>Stock</th>
-					<th scope='col'>Status</th>
-					<th scope='col'>Category</th>
-					<th scope='col'>Thumbnail</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{#each docs}}
+<div><br /></div>
+<div class='container'>
+	<div class='row'>
+		<div class='col-md-8'>
+			<h2>Listado de productos</h2>
+			<table class='table'>
+				<thead>
 					<tr>
-						<th scope='row'>{{this._id}}  </th>
-						<td>{{this.title}} </td>
-						<td>{{this.description}} </td>
-						<td>{{this.code}} </td>
-						<td>{{this.price}} </td>
-						<td>{{this.stock}} </td>
-						<td>{{this.status}} </td>
-						<td>{{this.category}} </td>
-						<td>{{this.thumbnail}} </td>
+						<th scope='col'>Nombre</th>
+						<th scope='col'>Descripción</th>
+						<th scope='col'>Code</th>
+						<th scope='col'>Precio</th>
+						<th scope='col'>Stock</th>
+						<th scope='col'>Status</th>
+						<th scope='col'>Categoria</th>
+						<th scope='col'>Imagen</th>
 					</tr>
-				{{/each}}
-			</tbody>
-		</table>
-	</div>
-	<div class="col-12 text-center">
-		<nav aria-label="...">
-			<ul class="pagination">
-				{{#if hasPrevPage}}
-					<li class="page-item">
-				{{else}}
-					<li class="page-item disabled">
-				{{/if}}
-						<a class="page-link" href="?limit={{limit}}&page={{prevPage}}">Previous</a>
+				</thead>
+				<tbody>
+					{{#each docs}}
+					<tr>
+						<td>{{this.title}}</td>
+						<td>{{this.description}}</td>
+						<td>{{this.code}}</td>
+						<td>${{this.price}}</td>
+						<td>{{this.stock}}</td>
+						<td>{{this.status}}</td>
+						<td>{{this.category}}</td>
+						<td>{{this.thumbnail}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+		<div class="col-12 text-area=center">
+			<nav>
+				<ul class="pagination pagination-sm">
+					{{#if hasPrevPage}}<li class="page-item"> {{else}}
+					<li class="page-item disabled">{{/if}}
+						<a class="page-link"
+							href="?limit={{limit}}&page={{prevPage}}&status={{status}}&category={{category}}&sort={{sort}}">Previous</a>
 					</li>
+
 					<li class="page-item">
-						<a class="page-link" href="?limit={{limit}}&page={{prevPage}}">{{prevPage}}</a>
+						<a class="page-link"
+							href="?limit={{limit}}&page={{prevPage}}&status={{status}}&category={{category}}&sort={{sort}}">{{prevPage}}</a>
 					</li>
+
 					<li class="page-item active" aria-current="page">
 						<a class="page-link" href="#">{{page}}</a>
 					</li>
+
 					<li class="page-item">
-						<a class="page-link" href="?limit={{limit}}&page={{nextPage}}">{{nextPage}}</a>
+						<a class="page-link"
+							href="?limit={{limit}}&page={{nextPage}}&status={{status}}&category={{category}}&sort={{sort}}">{{nextPage}}</a>
 					</li>
-				{{#if hasNextPage}}
-					<li class="page-item">
-				{{else}}
-					<li class="page-item disabled">
-				{{/if}}
-						<a class="page-link" href="?limit={{limit}}&page={{nextPage}}">Next</a>
+
+					{{#if hasNextPage}}<li class="page-item">{{else}}
+					<li class="page-item disabled">{{/if}}
+						<a class="page-link"
+							href="?limit={{limit}}&page={{nextPage}}&status={{status}}&category={{category}}&sort={{sort}}">Next</a>
 					</li>
-			</ul>
+				</ul>
 			</nav>
 		</div>
-    </div>
-</div>
-<script> var page = 'products' </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src='/socket.io/socket.io.js'></script>
-<script src='/js/main.js'></script>
+
+
+		<div class="category">
+			<h3>Filtros</h3>
+			<form method='get'>
+
+				<h4>Categorias</h4>
+				<div class="col-6">
+					<select class='form-select' aria-label='Category' name='category' required='true' />
+					<option selected value='undefined'>Todos los productos</option>
+					<option value="accesorios">Accesorios</option>
+					<option value="notebooks">Notebooks</option>
+					<option value="monitores">Monitores</option>
+					<option value="tablets">Tablets</option>
+					</select>
+
+					<h4>Precio</h4>
+					<div class="col-6">
+						<select class='form-select' aria-label='Sort' name='sort' required='true'>
+							<option selected value="undefined">Sin ordenar</option>
+							<option value="desc">Precio descendente</option>
+							<option value="asc">Precio ascendente</option>
+						</select>
+					</div>
+
+					<h4>Status</h4>
+					<div class="col-6">
+						<select class='form-select' aria-label='Status' name='status' required='true' />
+						<option selected value="true">True</option>
+						<option value="false">False</option>
+						</select>
+
+						<button type='submit' class=' btn btn-primary form-control'>
+							Filtrar
+						</button>
+					</div>
+			</form>
+		</div>
+
+
+		<div class="col-6">
+			<h2>Alta de Producto</h2>
+			<form action='/api/products' method='post'>
+				<div class='row'>
+					<div class='col-6'>
+						<input type='text' class='form-control' placeholder='Title' aria-label='Title' name='title'
+							required=true />
+					</div>
+					<div class='col-6'>
+						<input type='text' class='form-control' placeholder='Description' aria-label='Description'
+							name='description' required=true />
+					</div>
+					<div class='col-6'>
+						<input type='text' class='form-control' placeholder='Code' aria-label='Code' name='code' />
+					</div>
+					<div class='col-6'>
+						<input type='number' class='form-control' placeholder='Price' aria-label='Price' name='price'
+							required='true' />
+					</div>
+					<div class='col-6'>
+						<input type='number' class='form-control' placeholder='Stock' aria-label='Stock' name='stock'
+							required='true' />
+					</div>
+					<div class="col-6">
+						<select class='form-select' aria-label='Status' name='status' required='true' />
+						<option selected value="true">True</option>
+						<option value="false">False</option>
+						</select>
+					</div>
+					<div class='col-6'>
+						<select class="form-select" aria-label="Default select example" name="category"
+							required='true' />
+						<option value="monitores">Monitores</option>
+						<option selected value="accesorios">Accesorios</option>
+						<option value="tablets">Tablets</option>
+						<option value="notebooks">Notebooks</option>
+						</select>
+					</div>
+					<div class='col-6'>
+						<input type='text' class='form-control' placeholder='Image' aria-label='Image' name='thumbnail'
+							required='true' />
+					</div>
+
+					<div class='col-6'>
+						<button type='submit' class=' btn btn-primary form-control'>
+							Enviar
+						</button>
+					</div>
+				</div>
+			</form>
+
+
+
+		</div>
