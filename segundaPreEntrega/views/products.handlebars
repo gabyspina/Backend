@@ -35,8 +35,11 @@
 		<div class="col-12 text-area=center">
 			<nav>
 				<ul class="pagination pagination-sm">
-					{{#if hasPrevPage}}<li class="page-item"> {{else}}
-					<li class="page-item disabled">{{/if}}
+					{{#if hasPrevPage}}
+						<li class="page-item">
+					{{else}}
+						<li class="page-item disabled">
+					{{/if}}
 						<a class="page-link"
 							href="?limit={{limit}}&page={{prevPage}}&status={{status}}&category={{category}}&sort={{sort}}">Previous</a>
 					</li>
