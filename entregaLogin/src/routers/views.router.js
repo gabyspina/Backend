@@ -10,12 +10,23 @@ viewsRouter.get('/', async (req, res) => {
 		res.render('products', data);
 	} catch (error) {
 		res.render('error');
-	}	
+	}
 });
-	
+
 viewsRouter.get('/cookies', (req, res) => {
 	res.render('cookies');
 });
 
+viewsRouter.get('/register', (req, res) => {
+	res.render('register', {
+		title: 'Register new user',
+	});
+});
+
+viewsRouter.get('/login', (req, res) => {
+	res.render('login', {
+		title: 'Inicio de sesión',
+	});
+});
 
 export default viewsRouter;

@@ -1,8 +1,9 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
-import mongoose from 'mongoose';
+import mongoose, { mongo } from 'mongoose';
 import { Server } from 'socket.io';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 import cartRouter from './routers/cart.router.js';
 import productRouter from './routers/product.router.js';
@@ -11,6 +12,9 @@ import viewsRouter from './routers/views.router.js';
 import { productService } from './services/product.services.js';
 import { chatService } from './services/chat.services.js';
 import cookieRouter from './routers/cookies.router.js';
+import sessionRouter from './routers/session.router.js';
+import userRouter from './routers/user.router.js';
+import MongoStore from 'connect-mongo';
 
 const app = express();
 const messages = [];
@@ -32,10 +36,27 @@ app.use('/api/products', productRouter);
 app.use('/', viewsRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/chat', chatRouter);
+app.use('/session', sessionRouter);
+app.use('/api/users', userRouter);
 
 // Configuración de cookies
 app.use(cookieParser('secretKey'));
 app.use('/cookies', cookieRouter);
+
+// Configuración de session
+app.use(
+	session({
+		store: MongoStore.create({
+			mongoUrl:
+				'mongodb+srv://gabyspina:gsp246813579@coderclaster.gnpohje.mongodb.net/ecommerce?retryWrites=true&w=majority',
+			mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
+			ttl: 600,
+		}),
+		secret: 'secretKey',
+		resave: false,
+		saveUninitialized: false,
+	})
+);
 
 // Configuración de mongoose
 mongoose.connect(

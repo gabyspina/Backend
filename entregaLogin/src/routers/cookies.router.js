@@ -7,7 +7,7 @@ cookieRouter.get('/get', (req, res) => {
 });
 
 cookieRouter.get('/set', (req, res) => {
-	res.cookie('name', 'gaby', { maxAge: 10000, signed: true });
+	res.cookie('name', 'gaby', { maxAge: 100000, signed: true });
 	res.send('Cookie set');
 });
 
